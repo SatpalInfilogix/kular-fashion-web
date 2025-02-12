@@ -10,19 +10,20 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\AboutController;
 
-// Route::get('abc', function () {
-//     return view('abc');
-// });
+Route::get('abc', function () {
+    return view('abc');
+});
 
 
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
+Route::get('/products/view', [ProductController::class, 'productView'])->name('products.view');
+Route::get('/new-checkout', [CheckoutController::class, 'checkout'])->name('new-checkout');
 Route::resources([
     'products' => ProductController::class,
-    'my-account' =>  MyAccountController::class,
+    'my-account' => MyAccountController::class,
     'cart'     => CartController::class,
     'checkout' => CheckoutController::class,
     'contact'  => ContactUsController::class,
