@@ -146,6 +146,7 @@ const Header: React.FC = () => {
                 Orders
               </a>
             )}
+             <a href="/gift-voucher">Gift Voucher</a>
             <div className="relative user-dropdown">
               {isLoggedIn ? (
                 <button
