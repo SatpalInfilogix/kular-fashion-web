@@ -1,5 +1,6 @@
 'use client';
 
+import ProductPrice from '@/components/product/ProductPrice';
 import Image from 'next/image';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { motion } from 'framer-motion';
@@ -26,12 +27,12 @@ const ProductCard: React.FC<ProductBase> = ({
 
     let thumbnail = `/images/default-product.png`;
 
-    if(default_image){
-        thumbnail = apiBaseRoot+default_image;
+    if (default_image) {
+        thumbnail = apiBaseRoot + default_image;
     }
 
-    if((images || []).length > 0){
-        thumbnail = apiBaseRoot+images[0].path;
+    if ((images || []).length > 0) {
+        thumbnail = apiBaseRoot + images[0].path;
     }
 
     const handleFavoriteToggle = async () => {
@@ -40,7 +41,7 @@ const ProductCard: React.FC<ProductBase> = ({
         const user_details = user_details_str ? JSON.parse(user_details_str) : null;
         const user_id = user_details ? user_details.id : null;
 
-         if (user_id) {
+        if (user_id) {
             try {
                 const response = await axios.post(`${apiBaseUrl}wishlist/add`, {
                     product_id: id,
@@ -52,12 +53,12 @@ const ProductCard: React.FC<ProductBase> = ({
                 });
 
                 const data = response.data;
-      
+
                 if (response.status === 200) {
                     const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
 
                     // Check if the product is already in localStorage
-                         const productIndex = wishlist.findIndex((item: any) => item.id === id);
+                    const productIndex = wishlist.findIndex((item: any) => item.id === id);
 
                     if (productIndex > -1) {
                         // If the product is in the wishlist, remove it
@@ -111,7 +112,7 @@ const ProductCard: React.FC<ProductBase> = ({
                 toast.error('Error updating wishlist locally: ' + error);
             } finally {
             }
-        }      
+        }
     };
 
     return (
@@ -141,7 +142,9 @@ const ProductCard: React.FC<ProductBase> = ({
                     </Link>
 
                     <Link href={`/product/${slug}`}>
-                        <p className="text-gray-900 text-sm cursor-pointer">£{price}</p>
+                        <p className="text-gray-900 text-sm cursor-pointer">
+                            <ProductPrice basePrice={price} />
+                        </p>
                     </Link>
                 </CardContent>
             </Card>

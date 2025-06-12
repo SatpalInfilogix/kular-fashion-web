@@ -1,5 +1,5 @@
 "use client";
-
+import ProductPrice from '@/components/product/ProductPrice';
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -138,11 +138,10 @@ const OrdersPage: React.FC = () => {
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-4 py-2 rounded-lg font-medium ${
-                  statusFilter === status
+                className={`px-4 py-2 rounded-lg font-medium ${statusFilter === status
                     ? "bg-primary text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-primary hover:text-white"
-                } cursor-pointer transition-all`}
+                  } cursor-pointer transition-all`}
               >
                 {status}
               </button>
@@ -202,7 +201,7 @@ const OrdersPage: React.FC = () => {
                 {/* Footer */}
                 <div className="flex items-center justify-between mt-6">
                   <p className="text-primary font-bold text-lg">
-                    Total: ${order.totalAmount.toFixed(2)}
+                    Total: <ProductPrice basePrice={order.totalAmount} />
                   </p>
                   <ArrowRight className="w-5 h-5 text-gray-500" />
                 </div>

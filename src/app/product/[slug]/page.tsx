@@ -1,5 +1,6 @@
 "use client";
 
+import ProductPrice from '@/components/product/ProductPrice';
 import { useEffect, useState } from "react";
 import ProductImages from "@/components/product/detail/images";
 import ProductVariants from "@/components/product/variants";
@@ -110,11 +111,11 @@ const ProductDetail = ({ params }: { params: Promise<{ slug: string }> }) => {
         let localCart = localCartStr
           ? JSON.parse(localCartStr)
           : {
-              user_id: null,
-              coupon_id: null,
-              note: null,
-              cartItems: [],
-            };
+            user_id: null,
+            coupon_id: null,
+            note: null,
+            cartItems: [],
+          };
 
         const existingItemIndex = localCart.cartItems.findIndex(
           (item: any) => item.variant_id === variant_id
@@ -259,7 +260,11 @@ const ProductDetail = ({ params }: { params: Promise<{ slug: string }> }) => {
               )}
 
               <div className="text-xl font-semibold mt-2">
-                {!selectedSize ? priceText : formatCurrency(selectedSize.price)}
+                {!selectedSize ? (
+                  <ProductPrice basePrice={minPrice} />
+                ) : (
+                  <ProductPrice basePrice={selectedSize.price} />
+                )}
               </div>
 
               <ProductVariants

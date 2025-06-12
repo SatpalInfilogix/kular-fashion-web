@@ -1,4 +1,6 @@
 "use client";
+
+import ProductPrice from '@/components/product/ProductPrice';
 import { useEffect, useState } from "react";
 import {
   Sheet,
@@ -99,11 +101,11 @@ const MiniCart: React.FC = () => {
         let localCart = localCartStr
           ? JSON.parse(localCartStr)
           : {
-              user_id: null,
-              coupon_id: null,
-              note: null,
-              cartItems: [],
-            };
+            user_id: null,
+            coupon_id: null,
+            note: null,
+            cartItems: [],
+          };
 
         const existingItemIndex = localCart.cartItems.findIndex(
           (item: any) => item.variant_id === variant_id
@@ -247,11 +249,11 @@ const MiniCart: React.FC = () => {
         let localCart = localCartStr
           ? JSON.parse(localCartStr)
           : {
-              user_id: null,
-              coupon_id: null,
-              note: null,
-              cartItems: [],
-            };
+            user_id: null,
+            coupon_id: null,
+            note: null,
+            cartItems: [],
+          };
 
         localCart.cartItems = localCart.cartItems.filter(
           (item: any) => item.id !== itemId
@@ -309,7 +311,7 @@ const MiniCart: React.FC = () => {
     const isLoggedIn = !!token;
 
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-   try {
+    try {
       if (isLoggedIn && user_id) {
         const res = await axios.post(`${apiBaseUrl}apply-coupon`, {
           user_id: user_id,
@@ -337,7 +339,7 @@ const MiniCart: React.FC = () => {
           );
         }
       } else {
-         const res = await axios.post(`${apiBaseUrl}apply-coupon`, {
+        const res = await axios.post(`${apiBaseUrl}apply-coupon`, {
           cart: cart,
           coupon: promoCodeInput
         });
@@ -472,7 +474,7 @@ const MiniCart: React.FC = () => {
                           )
                         }
                       />
-                      <span className="block text-gray-900">${item.price}</span>
+                      <ProductPrice basePrice={item.price} />
                     </div>
                   </div>
                 </motion.li>
@@ -513,9 +515,8 @@ const MiniCart: React.FC = () => {
                 </div>
                 {promoMessage && (
                   <div
-                    className={`text-sm ${
-                      promoSuccess ? "text-green-600" : "text-red-600"
-                    }`}
+                    className={`text-sm ${promoSuccess ? "text-green-600" : "text-red-600"
+                      }`}
                   >
                     {promoMessage}
                   </div>
@@ -525,17 +526,17 @@ const MiniCart: React.FC = () => {
 
             <div className="flex justify-between">
               <span className="text-lg">Subtotal:</span>
-              <span className="text-gray-900">£{subTotal.toFixed(2)}</span>
+              <ProductPrice basePrice={subTotal} />
             </div>
             {Number(discount) > 0 && (
               <div className="flex justify-between">
                 <span className="text-lg">Discount:</span>
-                <span className="text-gray-900">£{discount}</span>
+                <ProductPrice basePrice={Number(discount)} />
               </div>
             )}
             <div className="flex justify-between">
               <span className="text-lg">Total:</span>
-              <span className="text-gray-900">£{total}</span>
+              <ProductPrice basePrice={Number(total)} />
             </div>
 
             <motion.div whileHover={{ scale: 1.05 }}>
